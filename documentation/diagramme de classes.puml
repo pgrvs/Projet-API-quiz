@@ -3,20 +3,20 @@ skinparam classAttributeIconSize 0
 
 class Question {
     - id : int
-    - question : string
+    - libelleQuestion : string
 }
 
 class Reponse {
     - id : int
     - reponse : string
-    - vraie : bool
+    - isTrue : bool
 }
 
 class Categorie {
     - id : int
-    - nom : string
+    - libelle : string
 }
 
-Categorie"1..1"--"1..*"Question
+Categorie"1..1"--"0..*"Question
 Reponse"1..*"--"1..1"Question
 @enduml
