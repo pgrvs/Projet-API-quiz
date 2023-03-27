@@ -6,6 +6,7 @@ class CategorieWithQuestionsDTO
 {
     private int $id;
     private string $libelle;
+    private array $reponses;
 
     /**
      * @return int
@@ -38,6 +39,24 @@ class CategorieWithQuestionsDTO
     {
         $this->libelle = $libelle;
     }
+
+    /**
+     * @return array
+     */
+    public function getReponses(): array
+    {
+        return $this->reponses;
+    }
+
+    /**
+     * @param array $reponses
+     */
+    public function setReponses(array $reponses): void
+    {
+        $this->reponses = $reponses;
+    }
+
+
 
 
 }

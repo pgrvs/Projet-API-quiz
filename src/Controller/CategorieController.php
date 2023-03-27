@@ -6,6 +6,7 @@ use App\Dto\CategorieCountQuestionsDTO;
 use App\Dto\CategorieWithQuestionsDTO;
 use App\Repository\CategorieRepository;
 use App\Repository\QuestionRepository;
+use App\Repository\ReponseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,17 +16,20 @@ class CategorieController extends AbstractController
 {
     private CategorieRepository $categorieRepository;
     private QuestionRepository $questionRepository;
+    private ReponseRepository $reponseRepository;
     private SerializerInterface $serializer;
 
     /**
      * @param CategorieRepository $categorieRepository
      * @param QuestionRepository $questionRepository
+     * @param ReponseRepository $reponseRepository
      * @param SerializerInterface $serializer
      */
-    public function __construct(CategorieRepository $categorieRepository, QuestionRepository $questionRepository, SerializerInterface $serializer)
+    public function __construct(CategorieRepository $categorieRepository, QuestionRepository $questionRepository, ReponseRepository $reponseRepository, SerializerInterface $serializer)
     {
         $this->categorieRepository = $categorieRepository;
         $this->questionRepository = $questionRepository;
+        $this->reponseRepository = $reponseRepository;
         $this->serializer = $serializer;
     }
 
@@ -79,6 +83,17 @@ class CategorieController extends AbstractController
             $categorieWithQuestionsDTO = new CategorieWithQuestionsDTO();
             $categorieWithQuestionsDTO->setId($questions[$i]->getId());
             $categorieWithQuestionsDTO->setLibelle(($questions[$i]->getLibelleQuestion()));
+
+            $reponses = [];
+            foreach ($this->reponseRepository->findBy(['question' => $questions[$i]->getId()]) as $reponse){
+                $reponses[] = [
+                    'LibelleReponse' => $reponse->getLibelleReponse(),
+                    'isTrue' => $reponse->isIsTrue()
+
+                ];
+            }
+
+            $categorieWithQuestionsDTO->setReponses($reponses);
             $questionsQuiz[] = $categorieWithQuestionsDTO;
         }
 

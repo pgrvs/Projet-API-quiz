@@ -16,7 +16,7 @@ class ReponseFixtures extends Fixture implements DependentFixtureInterface
 
         for ($iQuestion=0; $iQuestion<100 ;$iQuestion++) {
 
-            $numReponseJuste = $faker->numberBetween(1,4);
+            $numReponseJuste = $faker->numberBetween(0,3);
 
             for ($i = 0; $i < 4; $i++) {
 
