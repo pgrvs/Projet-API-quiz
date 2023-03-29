@@ -33,7 +33,7 @@ class CategorieController extends AbstractController
         $this->serializer = $serializer;
     }
 
-    #[Route('/api/categories', name: 'app_get_categories', methods: ['GET'])]
+    #[Route('/api/quizz/categories', name: 'app_get_categories', methods: ['GET'])]
     public function getCategories(): Response
     {
         $categories = $this->categorieRepository->findAll();
@@ -43,7 +43,7 @@ class CategorieController extends AbstractController
         return new Response($categoriesJson, Response::HTTP_OK, ['content-type' => 'application/json']);
     }
 
-    #[Route('/api/categories/{slug}', name: 'api_get_categorie', methods: ['GET'])]
+    #[Route('/api/quizz/categories/{slug}', name: 'api_get_categorie', methods: ['GET'])]
     public function getCategorie($slug): Response
     {
         $categorie = $this->categorieRepository->findOneBy(['slug' => $slug]);
@@ -62,7 +62,7 @@ class CategorieController extends AbstractController
         return new Response($categoryJson, Response::HTTP_OK, ['content-type' => 'application/json']);
     }
 
-    #[Route('/api/categories/{slug}/questions/{nombre}', name: 'api_get_categorie_nombre', methods: ['GET'])]
+    #[Route('/api/quizz/categories/{slug}/questions/{nombre}', name: 'api_get_categorie_nombre', methods: ['GET'])]
     public function getQuizCategorie($slug, $nombre): Response
     {
         $categorie = $this->categorieRepository->findOneBy(['slug' => $slug]);
