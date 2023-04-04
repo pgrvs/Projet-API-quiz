@@ -25,6 +25,7 @@ class Categorie
     private Collection $questions;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['list_categories'])]
     private ?string $slug = null;
 
     public function __construct()
